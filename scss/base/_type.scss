@@ -11,13 +11,11 @@
   // Links
   a {
     color: $base-link-color;
-    text-decoration: none;
 
     &:hover,
     &:visited {
       color: lighten($base-link-color, 10%);
       cursor: pointer;
-      text-decoration: underline;
     }
 
     p & {
@@ -47,20 +45,12 @@
     &[title],
     &[data-original-title] {
       cursor: help;
-      border-bottom: 1px dotted #999;
+      border-bottom: 1px dotted $base-font-color;
     }
   }
 
   acronym {
     cursor: help;
-    border-bottom: 1px dashed $base-link-color;
-  }
-
-  kbd {
-    background-color: #333;
-    border-radius: 4px;
-    color: #fff;
-    font-size: 90%;
-    padding: 1px 4px;
+    border-bottom: 1px dashed $base-font-color;
   }
 }

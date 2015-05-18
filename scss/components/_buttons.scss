@@ -15,14 +15,9 @@
     position: relative;
     text-align: center;
     text-decoration: none;
+    user-select: none;
     vertical-align: baseline;
     white-space: nowrap;
-
-    -webkit-touch-callout: none;
-
-    @include vendor(user-select, none, webkit ms o official);
-
-    @include vendor(user-drag, none, webkit);
 
     &::-moz-focus-inner {
       padding: 0;
@@ -45,6 +40,24 @@
       }
     }
 
+    a.btn {
+      &,
+      &:hover {
+        color: $button-hover-font-color;
+        text-decoration: none;
+      }
+
+      &:active { outline: 0; }
+    }
+
+    input[type="submit"].btn {
+      color: $button-font-color;
+      height: auto;
+      padding: 0.5em 1em;
+    }
+
+    button.btn { color: $button-font-color; }
+
 
     // Background colors
     @if $use-button-bg-colors == true {
@@ -62,25 +75,8 @@
     }
   }
 
-  a.btn {
-    &,
-    &:hover {
-      color: $button-hover-font-color;
-      text-decoration: none;
-    }
 
-    &:active { outline: 0; }
-  }
-
-  input[type="submit"].btn {
-    color: $button-font-color;
-    height: auto;
-    padding: 0.5em 1em;
-  }
-
-  button.btn { color: $button-font-color; }
-
-
+  // Button Styles
   @if $use-button-styles == true {
     // Full-width collapsed button
     .btn-collapse-full {

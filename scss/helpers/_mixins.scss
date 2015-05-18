@@ -68,21 +68,15 @@
 //
 // Parameters:
 //  $point: the breakpoint value for the media query output
-//  $min-max: set whether `min-width` or `max-width` is used (default is `min-width`)
+//  $min-max: set whether `min` or `max` is used (default is `min`)
 //
 // Example:
 //  `@include breakpoint(extra-small) { ... }`
 //
-//  `@include breakpoint(360px) { ... }`
+//  `@include breakpoint(360px, max) { ... }`
 //
 //
-@mixin breakpoint($point, $use-max-width: false) {
-  $min-max: "min";
-
-  @if $use-max-width == true {
-    $min-max: "max";
-  }
-
+@mixin breakpoint($point, $min-max: "min") {
   @if type-of($point) == string {
     @each $breakpoint-name, $breakpoint-value in $breakpoint-map {
       @if $point == $breakpoint-name {
@@ -122,6 +116,9 @@
 //  );
 //
 //
+// Big thanks to Max Luster for a great article about chained media
+// queries that created the majority of this mixin.
+// (https://bugsnag.com/blog/responsive-typography-with-chained-media-queries)
 @mixin responsive($properties, $values, $responsive-values, $use-available-mixins: true) {
   @each $property in $properties {
     @if $property == "font-size" and $use-available-mixins == true {
@@ -196,7 +193,7 @@
 //
 //
 @mixin column($column, $number-columns: $column-number, $first-column: false, $use-gutters: false, $gutter-value: strip-units($gutters)) {
-  @include vendor(background-clip, padding-box, webkit);
+  background-clip: padding-box;
 
   @include breakpoint(small) {
     @if $use-gutters == true {
@@ -279,12 +276,13 @@
   @for $i from 1 through $number {
     $column-width-gutters: (100% - $gutters * ($number - 1)) / $number;
 
-    .#{$column-prefix + $i} {
+    .#{$column-prefix + $i},
+    .gutters .gutters-off .#{$column-prefix + $i} {
       width: 100% / $number * $i;
+    }
 
-      .gutters & {
-        width: $column-width-gutters * $i + $gutters * ($i - 1);
-      }
+    .gutters .#{$column-prefix + $i} {
+      width: $column-width-gutters * $i + $gutters * ($i - 1);
     }
   }
 }

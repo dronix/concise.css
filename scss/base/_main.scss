@@ -10,9 +10,7 @@
   *{
     &,
     &:before,
-    &:after {
-      @include vendor(box-sizing, border-box, official);
-    }
+    &:after { box-sizing: border-box; }
   }
 
   html,
